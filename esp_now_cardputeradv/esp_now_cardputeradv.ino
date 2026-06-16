@@ -34,12 +34,33 @@ void redraw()
 {
   M5Cardputer.Display.fillScreen(BLACK);
 
+  const int lineHeight = 10;
+
+  int maxVisible =
+    (M5Cardputer.Display.height() - 16) /
+    lineHeight;
+
+  int startIndex = 0;
+
+  if (historyCount > maxVisible)
+  {
+    startIndex =
+      historyCount - maxVisible;
+  }
+
   int y = 2;
 
-  for (int i = 0; i < historyCount; i++)
+  for (int i = startIndex;
+       i < historyCount;
+       i++)
   {
-    M5Cardputer.Display.drawString(history[i], 2, y);
-    y += 10;
+    M5Cardputer.Display.drawString(
+      history[i],
+      2,
+      y
+    );
+
+    y += lineHeight;
   }
 
   M5Cardputer.Display.fillRect(
